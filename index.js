@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const ObjectID = require('mongodb').ObjectID
 require('dotenv').config()
 
-const port = process.env.PORT || 5000
+const port = 5000
 // console.log(process.env.DB_USER)
 
 app.use(cors());
@@ -65,11 +65,9 @@ client.connect(err => {
 
   app.delete('/delete/:id', (req, res) => {
     const id = ObjectID(req.params.id)
-    // console.log('delete this', req.params.id)
+    console.log('delete this', id)
     servicesCollection.findOneAndDelete({_id: id})
-    .then(result => {
-      console.log(result);
-     })
+    .then(documents => res.send(!!documents.value))
   })
 
   // client.close();
